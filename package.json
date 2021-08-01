@@ -1,0 +1,23 @@
+{
+  "name": "clean-architecture-example",
+  "version": "1.0.0",
+  "description": "Example repo for the clean architecture blog post",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/olorondu-emeka/clean-architecture-example.git"
+  },
+  "author": "Olorondu Chukwuemeka",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/olorondu-emeka/clean-architecture-example/issues"
+  },
+  "homepage": "https://github.com/olorondu-emeka/clean-architecture-example#readme",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.17.1"
+  }
+}
