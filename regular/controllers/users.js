@@ -30,4 +30,10 @@ class Users {
    * @param {object} req express request object
    * @param {object} res express response object
    */
+  static findAll(req, res) {
+    const allUsers = UserModel.findAll();
+    return res.status(200).json({ users: allUsers });
+  }
 }
+
+module.exports = Users;
