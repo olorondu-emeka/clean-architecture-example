@@ -18,8 +18,7 @@ class User {
   }
 
   static update(email, inputFields) {
-    let clonedField = { ...this.db[email] };
-    this.db[email] = { ...this.db, ...inputFields };
+    this.db[email] = { ...this.db[email], ...inputFields };
   }
 
   static delete(id) {

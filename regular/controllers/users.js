@@ -51,6 +51,11 @@ class Users {
     }
   }
 
+  /**
+   * @async
+   * @param {object} req express request object
+   * @param {object} res express response object
+   */
   static update(req, res) {
     try {
       const { email } = req.query;
@@ -61,7 +66,7 @@ class Users {
         return res.status(404).json({ message: 'user does not exist' });
       }
 
-      UserModel.update(req.body);
+      UserModel.update(email, req.body);
     } catch (error) {
       console.error(error);
     }
