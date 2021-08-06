@@ -4,7 +4,9 @@
   "description": "Example repo for the clean architecture blog post",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js",
+    "start:dev": "nodemon index.js"
   },
   "repository": {
     "type": "git",
@@ -19,5 +21,8 @@
   "dependencies": {
     "cors": "^2.8.5",
     "express": "^4.17.1"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.12"
   }
 }
