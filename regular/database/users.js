@@ -3,27 +3,25 @@ const database = require('./index');
 class User {
   constructor() {
     this.db = database.getDB();
-    this.index = 0;
   }
 
-  create(inputFields) {
-    this.index += 1;
-    this.db[this.index] = inputFields;
+  static create(inputFields) {
+    this.db[inputFields.email] = inputFields;
   }
 
-  findAll() {
+  static findAll() {
     return Object.values(this.db);
   }
 
-  findOne(id) {
-    return this.db[id];
+  static findByEmail(email) {
+    return this.db[email];
   }
 
-  update(inputFields) {
+  static update(inputFields) {
     this.db = { ...this.db, ...inputFields };
   }
 
-  delete(id) {
+  static delete(id) {
     delete obj1[id];
   }
 }
