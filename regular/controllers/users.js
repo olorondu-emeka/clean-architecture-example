@@ -30,9 +30,41 @@ class Users {
    * @param {object} req express request object
    * @param {object} res express response object
    */
-  static findAll(req, res) {
-    const allUsers = UserModel.findAll();
-    return res.status(200).json({ users: allUsers });
+  static findAllOrOne(req, res) {
+    try {
+      const { email } = req.query;
+
+      if (!email) {
+        const allUsers = UserModel.findAll();
+        return res.status(200).json({ users: allUsers });
+      }
+
+      const possibleUser = UserModel.findByEmail(email);
+
+      if (!possibleUser) {
+        return res.status(404).json({ message: 'user does not exist' });
+      }
+
+      return res.status(200).json({ user: possibleUser });
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
+  static update(req, res) {
+    try {
+      const { email } = req.query;
+
+      const possibleUser = UserModel.findByEmail(email);
+
+      if (!possibleUser) {
+        return res.status(404).json({ message: 'user does not exist' });
+      }
+
+      UserModel.update(req.body);
+    } catch (error) {
+      console.error(error);
+    }
   }
 }
 
