@@ -32,14 +32,14 @@ class Users {
    */
   static findAllOrOne(req, res) {
     try {
-      const { email } = req.query;
+      const { id } = req.params;
 
-      if (!email) {
+      if (!id) {
         const allUsers = UserModel.findAll();
         return res.status(200).json({ users: allUsers });
       }
 
-      const possibleUser = UserModel.findByEmail(email);
+      const possibleUser = UserModel.findById(id);
 
       if (!possibleUser) {
         return res.status(404).json({ message: 'user does not exist' });
@@ -58,15 +58,15 @@ class Users {
    */
   static update(req, res) {
     try {
-      const { email } = req.query;
+      const { id } = req.params;
 
-      const possibleUser = UserModel.findByEmail(email);
+      const possibleUser = UserModel.findById(id);
 
       if (!possibleUser) {
         return res.status(404).json({ message: 'user does not exist' });
       }
 
-      UserModel.update(email, req.body);
+      UserModel.update(id, req.body);
     } catch (error) {
       console.error(error);
     }
@@ -79,20 +79,18 @@ class Users {
    */
   static delete(req, res) {
     try {
-      const { email } = req.query;
+      const { id } = req.params;
 
-      if (!email) {
-        return res
-          .status(400)
-          .json({ message: 'email query param is required' });
+      if (!id) {
+        return res.status(400).json({ message: 'id param is required' });
       }
 
-      const possibleUser = UserModel.findByEmail(email);
+      const possibleUser = UserModel.findById(id);
       if (!possibleUser) {
         return res.status(404).json({ message: 'user not found' });
       }
 
-      UserModel.delete(email);
+      UserModel.delete(id);
       return res.status(200).json({ message: 'user deleted successfully' });
     } catch (error) {
       console.error(error);
