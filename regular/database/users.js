@@ -6,39 +6,39 @@ class User {
     this.index = 0;
   }
 
-  static create(inputFields) {
+  create(inputFields) {
     this.index += 1;
-    this.db[index] = inputFields;
+    this.db[this.index] = inputFields;
   }
 
-  static findAll() {
+  findAll() {
     return Object.values(this.db);
   }
 
-  static findByEmail(email) {
+  findByEmail(email) {
     let found = false;
     let possibleUser = null;
 
-    Object.values(this.db).forEach(user => {
-      if(user.email === email) {
+    Object.values(this.db).forEach((user) => {
+      if (user.email === email) {
         found = true;
         possibleUser = user;
-        break;
+        return;
       }
     });
 
     return possibleUser;
   }
 
-  static findById(id){
+  findById(id) {
     return this.db[id];
   }
 
-  static update(id, inputFields) {
+  update(id, inputFields) {
     this.db[id] = { ...this.db[id], ...inputFields };
   }
 
-  static delete(id) {
+  delete(id) {
     delete this.db[id];
   }
 }

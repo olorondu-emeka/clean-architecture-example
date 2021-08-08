@@ -1,4 +1,5 @@
-const UserModel = require('../database/users');
+const userModel = require('../database/users');
+const UserModel = new userModel();
 
 class Users {
   /**
@@ -67,6 +68,7 @@ class Users {
       }
 
       UserModel.update(id, req.body);
+      return res.status(200).json({ message: 'user updated successfully' });
     } catch (error) {
       console.error(error);
     }
