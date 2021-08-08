@@ -21,8 +21,8 @@ class User {
     this.db[email] = { ...this.db[email], ...inputFields };
   }
 
-  static delete(id) {
-    delete obj1[id];
+  static delete(email) {
+    delete obj1[email];
   }
 }
 
