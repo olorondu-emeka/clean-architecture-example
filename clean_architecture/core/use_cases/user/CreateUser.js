@@ -8,6 +8,7 @@ class CreateUser {
 
   async execute({ lastName, firstName, email, password }) {
     try {
+      console.log('create user use_case');
       // simple validation
       if (!lastName) return ErrorResponse.badRequest('lastName is required');
       if (!firstName) return ErrorResponse.badRequest('firstName is required');
@@ -25,11 +26,12 @@ class CreateUser {
         lastName,
         firstName,
         email,
-        passsword
+        password
       });
 
       return SuccessResponse.created('user created successfully', createdUser);
     } catch (error) {
+      console.log(error);
       throw error;
     }
   }

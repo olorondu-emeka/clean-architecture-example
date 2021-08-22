@@ -3,7 +3,7 @@ const cors = require('cors');
 
 const connectMongodb = require('./clean_architecture/config/dbConnection');
 const userRoute_regular = require('./regular/routes/users');
-const userRoute_clean_architecture = require('./regular/routes/users');
+const userRoute_clean_architecture = require('./clean_architecture/entry_point/web/routes/users');
 const PORT = 5000;
 
 const app = express();

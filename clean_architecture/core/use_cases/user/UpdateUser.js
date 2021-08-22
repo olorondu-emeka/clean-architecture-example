@@ -17,6 +17,7 @@ class UpdateUser {
 
       return SuccessResponse.ok('user updated successfully', updatedUser);
     } catch (error) {
+      console.log(error);
       throw error;
     }
   }

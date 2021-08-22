@@ -13,6 +13,7 @@ class User {
     try {
       // UC stands for: use case
       const { lastName, firstName, email, password } = req.body;
+
       const response = await CreateUserUC.execute({
         lastName,
         firstName,
@@ -30,8 +31,8 @@ class User {
   static async getSingleUser(req, res) {
     try {
       // UC stands for: use case
-      const { userId } = req.params;
-      const response = await GetSingleUserUC.execute(userId);
+      const { id } = req.params;
+      const response = await GetSingleUserUC.execute(id);
 
       const { statusCode, responseObject } = response;
       return generateResponse(res, statusCode, responseObject);
@@ -43,8 +44,8 @@ class User {
   static async updateUser(req, res) {
     try {
       // UC stands for: use case
-      const { userId } = req.params;
-      const response = await UpdateUserUC.execute(userId, req.body);
+      const { id } = req.params;
+      const response = await UpdateUserUC.execute(id, req.body);
 
       const { statusCode, responseObject } = response;
       return generateResponse(res, statusCode, responseObject);
@@ -56,8 +57,8 @@ class User {
   static async deleteUser(req, res) {
     try {
       // UC stands for: use case
-      const { userId } = req.params;
-      const response = await DeleteUserUC.execute(userId);
+      const { id } = req.params;
+      const response = await DeleteUserUC.execute(id);
 
       const { statusCode, responseObject } = response;
       return generateResponse(res, statusCode, responseObject);
