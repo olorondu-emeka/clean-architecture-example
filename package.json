@@ -6,7 +6,9 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node index.js",
-    "start:dev": "nodemon index.js"
+    "start:dev": "nodemon index.js",
+    "knex:migrate:make": "knex migrate:make --knexfile ./clean_architecture/data/database/sql/config/knexfile.js",
+    "db:migrate": "knex migrate:latest --knexfile ./clean_architecture/data/database/sql/config/knexfile.js"
   },
   "repository": {
     "type": "git",
