@@ -6,7 +6,7 @@ const {
   GetSingleUserUC,
   UpdateUserUC,
   DeleteUserUC
-} = require('../../../config/index');
+} = require('../../../config/useCases');
 
 class User {
   static async createUser(req, res) {

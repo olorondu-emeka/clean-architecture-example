@@ -1,6 +1,9 @@
 const express = require('express');
 const cors = require('cors');
-const userRoute = require('./regular/routes/users');
+
+const connectMongodb = require('./clean_architecture/config/dbConnection');
+const userRoute_regular = require('./regular/routes/users');
+const userRoute_clean_architecture = require('./regular/routes/users');
 const PORT = 5000;
 
 const app = express();
@@ -14,12 +17,15 @@ app.get('/', (req, res) => {
   return res.status(200).send('Welcome');
 });
 
-app.use('/users', userRoute);
+// ca stands for: clean architecture
+app.use('/regular/users', userRoute_regular);
+app.use('/ca/users', userRoute_clean_architecture);
 
 app.use('*', (request, response) => {
   response.status(404).send('Not Found');
 });
 
 app.listen(PORT, () => {
+  connectMongodb();
   console.log(`listening on port: ${PORT}`);
 });
