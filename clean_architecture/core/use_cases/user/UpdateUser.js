@@ -17,7 +17,7 @@ class UpdateUser {
 
       return SuccessResponse.ok('user updated successfully', updatedUser);
     } catch (error) {
-      return ErrorResponse.serverError(error.message);
+      throw error;
     }
   }
 }

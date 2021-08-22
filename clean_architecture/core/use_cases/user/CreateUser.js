@@ -30,7 +30,7 @@ class CreateUser {
 
       return SuccessResponse.created('user created successfully', createdUser);
     } catch (error) {
-      return ErrorResponse.serverError(error.message);
+      throw error;
     }
   }
 }

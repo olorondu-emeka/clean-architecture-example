@@ -17,7 +17,7 @@ class DeleteUser {
 
       return SuccessResponse.ok('user deleteded successfully', deletedUser);
     } catch (error) {
-      return ErrorResponse.serverError(error.message);
+      throw error;
     }
   }
 }

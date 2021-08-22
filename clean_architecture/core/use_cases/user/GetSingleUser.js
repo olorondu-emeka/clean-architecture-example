@@ -15,7 +15,7 @@ class GetSingleUser {
 
       return SuccessResponse.ok('user retrieved successfully', possibleUser);
     } catch (error) {
-      return ErrorResponse.serverError(error.message);
+      throw error;
     }
   }
 }
