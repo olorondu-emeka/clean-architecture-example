@@ -8,6 +8,7 @@ class CreateUser {
 
   async execute({ lastName, firstName, email, password }) {
     try {
+      // simple validation
       if (!lastName) return ErrorResponse.badRequest('lastName is required');
       if (!firstName) return ErrorResponse.badRequest('firstName is required');
       if (!email) return ErrorResponse.badRequest('email is required');
