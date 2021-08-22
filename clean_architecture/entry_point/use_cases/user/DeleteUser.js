@@ -13,9 +13,9 @@ class DeleteUser {
       const possibleUser = await this.userRepo.findById(userId);
       if (!possibleUser) return ErrorResponse.notFound('user does not exist');
 
-      await this.userRepo.deleteUser(userId);
+      const deletedUser = await this.userRepo.deleteUser(userId);
 
-      return SuccessResponse.ok('user deleteded successfully', null);
+      return SuccessResponse.ok('user deleteded successfully', deletedUser);
     } catch (error) {
       return ErrorResponse.serverError(error.message);
     }

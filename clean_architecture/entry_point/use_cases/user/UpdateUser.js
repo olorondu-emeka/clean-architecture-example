@@ -13,7 +13,7 @@ class UpdateUser {
       const possibleUser = await this.userRepo.findById(userId);
       if (!possibleUser) return ErrorResponse.notFound('user does not exist');
 
-      const updatedUser = await this.userRepo.UpdateUser(userId, userDetails);
+      const updatedUser = await this.userRepo.updateUser(userId, userDetails);
 
       return SuccessResponse.ok('user updated successfully', updatedUser);
     } catch (error) {

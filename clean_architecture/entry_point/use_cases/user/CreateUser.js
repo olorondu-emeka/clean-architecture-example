@@ -21,7 +21,7 @@ class CreateUser {
       }
 
       // create user
-      const createdUser = await this.userRepo.create({
+      const createdUser = await this.userRepo.createUser({
         lastName,
         firstName,
         email,
