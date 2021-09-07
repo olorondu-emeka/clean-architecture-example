@@ -275,7 +275,7 @@ module.exports = Users;
 
 From the above file, the following observations could be made as examples of tight coupling:
 
-- database query functions are called directly in this file, as reflected by the import on line 1. A disadvantage of this is that changes made to the `userModel` would directly affect the business logic of the application.
+- database query functions are called directly in this file, as reflected by the import on **line 1**. A disadvantage of this is that changes made to the `userModel` would directly affect the business logic of the application.
 
 - the business logic contained in the `controllers/users.js` file has been directly bound to a single type of database (in this case, the in-memory database). A change in the type of database used (e.g MongoDB) would mean that several parts of this file containing database query methods would be changed as well. Once again, the business logic has been affected by a non-business factor.
 
@@ -284,3 +284,67 @@ Ideally, the business logic should only be modified if there is a change in the 
 An alternative architecture which effectively handles the above concerns is discussed below.
 
 #### Clean Architecture
+
+A cleaner and more flexible architecture, is one that is loosely coupled and modular in nature. This means that there is clear separation of concerns and modularity is implemented in a manner that ensures code reuse.
+
+To demonstrate the flexibility of this architecture, two different database management systems were used namely: **PostgreSQL** & **MongoDB**. I applied lessons learned from Clean Architecture ( Robert C. Martin) and Domain-Driven Design (DDD).
+
+The folder called `clean_architecture` is structured as shown below:
+
+```bash
+clean-architecture-example
+├─ clean_architecture
+│  ├─ config
+│  │  ├─ dbConnection.js
+│  │  └─ useCases.js
+│  ├─ core
+│  │  ├─ definitions
+│  │  │  ├─ ErrorResponse.js
+│  │  │  └─ SuccessResponse.js
+│  │  ├─ entities
+│  │  │  └─ User.js
+│  │  └─ use_cases
+│  │     └─ user
+│  │        ├─ CreateUser.js
+│  │        ├─ DeleteUser.js
+│  │        ├─ GetSingleUser.js
+│  │        └─ UpdateUser.js
+│  ├─ data
+│  │  ├─ database
+│  │  │  ├─ nosql
+│  │  │  │  ├─ index.js
+│  │  │  │  └─ models
+│  │  │  │     └─ user.js
+│  │  │  └─ sql
+│  │  │     ├─ config
+│  │  │     │  ├─ knex.js
+│  │  │     │  ├─ knexfile.js
+│  │  │     │  └─ tableNames.js
+│  │  │     └─ migrations
+│  │  │        └─ 20210822143115_users.js
+│  │  └─ implementations
+│  │     ├─ index.js
+│  │     ├─ nosql
+│  │     │  └─ user.js
+│  │     └─ sql
+│  │        └─ user.js
+│  └─ entry_point
+│     └─ web
+│        ├─ controllers
+│        │  └─ user.js
+│        ├─ helpers
+│        │  └─ generateResponse.js
+│        └─ routes
+│           └─ users.js
+```
+
+This folder is made of 4 key sub-folders namely:
+
+1. **config:** This folder contains all the configuration files needed by the project. It is composed of 2 major files namely:
+
+- `dbConnection.js`, which handles the MongoDB connection
+- `useCases.js`, which is an orchestrator file for the use cases (more on that later)
+
+2. **core:** As the name implies, this folder is the fundamental core of the application. It comprises of 3 subfolders namely:
+
+- **definitions:** This contains reusable API response functions for **success** and **error** responses namely: `SuccessResponse.js` and `ErrorResponse.js`
