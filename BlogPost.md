@@ -1,19 +1,16 @@
-### Outline
+## Outline
 
 1. Scope of the article
 2. Introduction
 3. Prerequisites
 4. Project setup
-5. Principles of a good software architecture
-6. Use cases
+5. What is a good software architecture?
+6. Practical use cases
+7. Practical demonstration of the clean architecture
+8. Conclusion
+9. Helpful links
 
-- Regular architecture
-- Scalable architecture
-
-7. Conclusion
-8. Helpful links
-
-### Scope of the article
+## Scope of the article
 
 This article teaches about how to implement a flexible backend architecture at the granular level with a practical example demonstrated using NodeJs (Express), MongoDB & Postgres.
 
@@ -21,7 +18,7 @@ This article teaches about how to implement a flexible backend architecture at t
 
 **Disclaimer:** Software architecture is a broad concept composed of several components and involves a lot of technical decisions to achieve. Owing to this, the concepts taught in this article are by no means an all-encompassing standard that guides building a scalable architecture, but rather seeks to demonstrate its fundamental principles at the most basic level. Feel free to adopt the concepts that best suit your project or organization.
 
-### Introduction
+## Introduction
 
 A common experience among private individuals building software and tech companies of varying sizes (startups, mid and large) is the need to build products fast.
 
@@ -33,7 +30,7 @@ Owing to this, how can software engineers structure their architecture in a way 
 
 In this article, we would learn about what a good software architecture looks like and how to implement it by comparing two use cases.
 
-### Prerequisites
+## Prerequisites
 
 The following prerequisites are required for this article:
 
@@ -50,7 +47,7 @@ The following prerequisites are required for this article:
 - PostgreSQL
 - Postman
 
-### Project setup
+## Project setup
 
 In order to follow along with the example project, clone [this repo](https://github.com/olorondu-emeka/clean-architecture-example) and follow the instructions detailed in its ReadMe file for the local development environment setup.
 
@@ -62,11 +59,11 @@ The project is a simple CRUD application with the following functionalities
 - updating a user
 - deleting a user.
 
-### What is a good software architecture?
+## What is a good software architecture?
 
 The architecture of a system is the shape or structure of the system created by the developers of such system. A good software architecture is one in which components of the system can be changed without compromising the core functionality (business logic). in order words, options such as the database management system (SQL, NoSQL, Graph, etc) API strategy (REST, GraphQL, etc), delivery platform (web, desktop, etc) should be flexible to changes without necessarily affecting the overall performance of the system.
 
-### Practical use cases
+## Practical use cases
 
 In order to gain a practical understanding of what a flexible architecture looks like, let's analyze the project example.
 
@@ -75,7 +72,7 @@ The major use cases we would look at are:
 - regular architecture
 - clean architecture
 
-#### Regular Architecture
+### Regular Architecture
 
 The folder labeled **regular** is an architecture that is commonly used in small and medium-scale projects. Below is its structure:
 
@@ -164,6 +161,8 @@ module.exports = User;
 ```
 
 This architecture is easy to get started with but is fundamentally not scalable as a result of its tightly coupled structure.
+
+#### Analysis
 
 To demonstrate, let's examine the file named `users.js` contained in the `controllers` folder:
 
@@ -283,7 +282,7 @@ Ideally, the business logic should only be modified if there is a change in the 
 
 An alternative architecture that effectively handles the above concerns is discussed below.
 
-#### Clean Architecture
+### Clean Architecture
 
 A cleaner and more flexible architecture is one that is loosely coupled and modular in nature. This means that there is a clear separation of concerns and modularity is implemented in a manner that ensures code reuse.
 
@@ -448,7 +447,7 @@ module.exports = finalRepositories;
 
 This ensures that the business logic files contained in `core/use_cases` remain independent of the type of database, delivery platform, or API strategy used.
 
-### Practical demonstration of the clean architecture
+## Practical demonstration of the clean architecture
 
 To demonstrate, we would test the concept learned in the clean architecture by using MongoDB & PostgreSQL, using the `env` variable: **DB_TYPE** to switch between the different databases.
 
@@ -456,13 +455,13 @@ We would be testing the `CreateUser` functionality in Postman using the route: `
 
 **Tip:** Ensure that your MongoDB and PostgreSQL server is running on your local machine.
 
-#### Example 1: MongoDB
+### Example 1: MongoDB
 
 By setting the `DB_TYPE=nosql`, we have instructed the system to use MongoDB. Using Postman, the result is as follows:
 
 ![create_user_mongodb.PNG](https://cdn.hashnode.com/res/hashnode/image/upload/v1631064274740/51AQXMWQC.png)
 
-#### Example 2: PostgreSQL
+### Example 2: PostgreSQL
 
 Using the same route as Example 1 above, set `DB_TYPE=sql` and restart the development server. The result is as follows:
 
@@ -470,11 +469,11 @@ Using the same route as Example 1 above, set `DB_TYPE=sql` and restart the devel
 
 This shows that we can use 2 different database management systems by changing the value of a single **env** variable- `DB_TYPE` without interfering with the core business logic of the application!
 
-### Conclusion
+## Conclusion
 
 The development process of a software product varies across organizations and is largely affected by its needs--as determined by the individual/organization responsible--and the deadline attached to the product launch. While the ability to iterate fast is important, care should also be taken to ensure that the architecture of the software is structured in a manner that is scalable, flexible, and maintainable.
 
-### Helpful Links
+## Helpful Links
 
 - [Minimum Viable Product (MVP)](https://en.wikipedia.org/wiki/Minimum_viable_product)
 - [Clean Architecture (Robert C. Martin)](https://blog.cleancoder.com/uncle-bob/2012/08/13/the-clean-architecture.html)
