@@ -6,8 +6,10 @@
 4. Project setup
 5. Principles of a good software architecture
 6. Use cases
-   a. Case 1: Tightly coupled architecture
-   b. Case 2: Scalable architecture
+
+- Regular architecture
+- Scalable architecture
+
 7. Conclusion
 8. Helpful links
 
@@ -287,7 +289,7 @@ An alternative architecture which effectively handles the above concerns is disc
 
 A cleaner and more flexible architecture, is one that is loosely coupled and modular in nature. This means that there is clear separation of concerns and modularity is implemented in a manner that ensures code reuse.
 
-To demonstrate the flexibility of this architecture, two different database management systems were used namely: **PostgreSQL** & **MongoDB**. I applied lessons learned from Clean Architecture ( Robert C. Martin) and Domain-Driven Design (DDD).
+To demonstrate its flexibility, two different database management systems were used namely: **PostgreSQL** & **MongoDB**. I applied lessons learned from Clean Architecture ( Robert C. Martin) and Domain-Driven Design (DDD).
 
 The folder called `clean_architecture` is structured as shown below:
 
@@ -357,3 +359,103 @@ This folder is made of 4 key sub-folders namely:
    - **implementations:** This folder contains `sql` and `nosql` subfolders, which contains required files for the implementation of the **sql** and **nosql** databases respectively, following the repository design pattern. In addition, it contains a single `index.js` file, which serves as an orchestrator file that dynamically selects the database implementation to be used in the application.
 
 4. **entry_point:** This is the folder that contains platform-specific configuration (web, desktop), which is essential the mode of delivery of the software. For this project, the platform can be deployed on the web, which is why there is a single `web`folder containing the necessary framework-related configuration required for the deployment of the application (i.e. controllers, routes, middleware etc).
+
+Analysis
+As an example, let's analyse the `CreateUser.js` file contained in`clean_architecture/core/use_cases/user` folder:
+
+```js
+const SuccessResponse = require('../../definitions/SuccessResponse');
+const ErrorResponse = require('../../definitions/ErrorResponse');
+
+class CreateUser {
+  constructor(userRepo) {
+    this.userRepo = userRepo;
+  }
+
+  async execute({ lastName, firstName, email, password }) {
+    try {
+      console.log('create user use_case');
+      // simple validation
+      if (!lastName) return ErrorResponse.badRequest('lastName is required');
+      if (!firstName) return ErrorResponse.badRequest('firstName is required');
+      if (!email) return ErrorResponse.badRequest('email is required');
+      if (!password) return ErrorResponse.badRequest('password is required');
+
+      const possibleUser = await this.userRepo.findByEmail(email);
+
+      if (possibleUser) {
+        return ErrorResponse.conflict('user already exists');
+      }
+
+      // create user
+      const createdUser = await this.userRepo.createUser({
+        lastName,
+        firstName,
+        email,
+        password
+      });
+
+      return SuccessResponse.created('user created successfully', createdUser);
+    } catch (error) {
+      console.log(error);
+      throw error;
+    }
+  }
+}
+
+module.exports = CreateUser;
+```
+
+The following observations could be made:
+
+- the file depends on only the `SuccessResponse.js` and `ErrorResponse.js` files, which do not change
+- The database model dependency is injected via the _constructor_. Note that the `CreateUser.js` file is unaware of the particular type of database system (sql/nosql) responsible for the model file.
+- Necessary user input is passed as an argument to the `execute` function.
+- The model configuration is handled by the `index.js` file in the `clean_architecture/data/implementations` folder:
+
+```js
+const dotenv = require('dotenv');
+const appPath = require('app-root-path');
+
+const UserRepo_sql = require('../implementations/sql/user');
+const UserRepo_nosql = require('../implementations/nosql/user');
+
+dotenv.config({ path: `${appPath}/.env` });
+
+const sqlRepos = {
+  UserRepo: UserRepo_sql
+};
+
+const nosqlRepos = {
+  UserRepo: UserRepo_nosql
+};
+
+const dbType = process.env.DB_TYPE || 'sql';
+let finalRepositories = null;
+
+switch (dbType) {
+  case 'sql':
+    finalRepositories = sqlRepos;
+    break;
+  case 'nosql':
+    finalRepositories = nosqlRepos;
+    break;
+  default:
+    finalRepositories = sqlRepos;
+    break;
+}
+
+module.exports = finalRepositories;
+```
+
+This ensures that the business logic files contained in `core/use_cases` remain independent of the type of database, delivery platform or API strategy used.
+
+### Conclusion
+
+The development process of a software product vary across organizations and are largely affected by its needs--as determined by the individual/organisation responsible-- and the deadline attached to the product launch. While the ability to iterate fast is important, care should also be taken to ensure that the architecture of the software is structured in a manner that is scalable, flexible and maintainable.
+
+### Helpful Links
+
+- [Minimum Viable Product (MVP)](https://en.wikipedia.org/wiki/Minimum_viable_product)
+- [Domain-Driven Design](https://en.wikipedia.org/wiki/Domain-driven_design)
+- [Repository Design Pattern in JavaScript](https://dev.to/thanasismpalatsoukas/repository-pattern-with-javascript-4nl)
