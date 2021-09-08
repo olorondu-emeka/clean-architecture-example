@@ -1,8 +1,8 @@
 # clean-architecture-example
 
-Example Repo for the clean architecture blog post
+Project Repo for the flexible architecture blog post
 
-## Foldder Structure
+## Folder Structure
 
 ```
 clean-architecture-example
