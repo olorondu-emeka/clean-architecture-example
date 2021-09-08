@@ -15,7 +15,7 @@
 
 ### Scope of the article
 
-This article teaches about how to implement a flexible architecture at the granular level with a practical example demonstrated using NodeJs (Express), MongoDB & Postgres.
+This article teaches about how to implement a flexible backend architecture at the granular level with a practical example demonstrated using NodeJs (Express), MongoDB & Postgres.
 
 **Non-scope:** This article does **not** teach about building REST APIs with NodeJs. Prior knowledge of this is expected.
 
@@ -35,24 +35,24 @@ In this article, we would learn about what a good software architecture looks li
 
 ### Prerequisites
 
-The following prerequisites is required for this article:
+The following prerequisites are required for this article:
 
-**Knowledge**
+**Basic knowledge**
 
-- Basic knowledge of NodeJs (Express), MongoDB & Postgres
-- Basic knowledge of KnexJs and Mongoose.
+- NodeJs (Express), MongoDB & PostgreSQL.
+- [KnexJs ](https://knexjs.org/) and [Mongoose](https://mongoosejs.com/) .
 - Basic knowledge of REST APIs & Postman.
 
 **Technical stack**
 
 - NodeJs (v8 or higher) & npm
 - MongoDB
-- Postgres
+- PostgreSQL
 - Postman
 
 ### Project setup
 
-In order to follow along with the example project, clone this repo and follow the instructions detailed in its ReadMe file for the local development environment setup.
+In order to follow along with the example project, clone [this repo](https://github.com/olorondu-emeka/clean-architecture-example) and follow the instructions detailed in its ReadMe file for the local development environment setup.
 
 The project is a simple CRUD application with the following functionalities
 
@@ -289,7 +289,7 @@ An alternative architecture which effectively handles the above concerns is disc
 
 A cleaner and more flexible architecture, is one that is loosely coupled and modular in nature. This means that there is clear separation of concerns and modularity is implemented in a manner that ensures code reuse.
 
-To demonstrate its flexibility, two different database management systems were used namely: **PostgreSQL** & **MongoDB**. I applied lessons learned from Clean Architecture ( Robert C. Martin) and Domain-Driven Design (DDD).
+To demonstrate its flexibility, two different database management systems were used namely: **PostgreSQL** & **MongoDB**. I applied [lessons learned](https://oloronduemeka.com/lessons-learned-from-the-clean-architecture-robert-c-martin) from Clean Architecture ( Robert C. Martin) and Domain-Driven Design (DDD).
 
 The folder called `clean_architecture` is structured as shown below:
 
@@ -457,5 +457,6 @@ The development process of a software product vary across organizations and are 
 ### Helpful Links
 
 - [Minimum Viable Product (MVP)](https://en.wikipedia.org/wiki/Minimum_viable_product)
+- [Clean Architecture (Robert C. Martin)](https://blog.cleancoder.com/uncle-bob/2012/08/13/the-clean-architecture.html)
 - [Domain-Driven Design](https://en.wikipedia.org/wiki/Domain-driven_design)
 - [Repository Design Pattern in JavaScript](https://dev.to/thanasismpalatsoukas/repository-pattern-with-javascript-4nl)
