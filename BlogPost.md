@@ -19,7 +19,7 @@ This article teaches about how to implement a flexible backend architecture at t
 
 **Non-scope:** This article does **not** teach about building REST APIs with NodeJs. Prior knowledge of this is expected.
 
-**Disclaimer:** Software architecture is a broad concept composed of several components and involves a lot of technical decisions to achieve. Owing to this, the concepts taught in this article is by no means an all-encompassing standard that guides building a scalable architecture, but rather seeks to demonstrate its fundamental principles at the most basic level. Feel free to adopt the concepts that best suits your project or organization.
+**Disclaimer:** Software architecture is a broad concept composed of several components and involves a lot of technical decisions to achieve. Owing to this, the concepts taught in this article are by no means an all-encompassing standard that guides building a scalable architecture, but rather seeks to demonstrate its fundamental principles at the most basic level. Feel free to adopt the concepts that best suit your project or organization.
 
 ### Introduction
 
@@ -27,7 +27,7 @@ A common experience among private individuals building software and tech compani
 
 In most cases, market research is carried out to validate the viability of a product idea, after which a Minimum Viable Product (MVP) is built. An MVP is the initial executed version of the product idea with minimum features required to establish a market presence, attract early customers and gain as much user feedback as possible, after which several iterations are done to improve the product based on the user feedback.
 
-Usually, some of the long-term goals for any software product is **scalability** and **maintainability**. A product that scales would be able to accommodate an increasing number of users. A critical factor that affects the scalability of such software products is the architecture. A good architecture is easy to maintain, thereby ensuring that engineers can iterate quickly and build efficiently. Conversely, a poorly implemented architecture would inhibit software engineers from iterating quickly and accumulate a great deal of technical debt which would eventually incur losses (technical & financial resources) on the business.
+Usually, some of the long-term goals for any software product are **scalability** and **maintainability**. A product that scales would be able to accommodate an increasing number of users. A critical factor that affects the scalability of such software products is the architecture. Good architecture is easy to maintain, thereby ensuring that engineers can iterate quickly and build efficiently. Conversely, a poorly implemented architecture would inhibit software engineers from iterating quickly and accumulate a great deal of technical debt which would eventually incur losses (technical & financial resources) on the business.
 
 Owing to this, how can software engineers structure their architecture in a way that is scalable and flexible to changes?
 
@@ -64,7 +64,7 @@ The project is a simple CRUD application with the following functionalities
 
 ### What is a good software architecture?
 
-The architecture of a system is the shape or structure of the system created by the developers of such system. A good software architecture is one in which components of the system can be changed without compromising the core functionality (business logic). in order words, options such as the database management system (SQL, NoSQL, Graph etc) API strategy (REST, GraphQL etc), delivery platform (web, desktop etc) should be flexible to changes without necessarily affecting the overall performance of the system.
+The architecture of a system is the shape or structure of the system created by the developers of such system. A good software architecture is one in which components of the system can be changed without compromising the core functionality (business logic). in order words, options such as the database management system (SQL, NoSQL, Graph, etc) API strategy (REST, GraphQL, etc), delivery platform (web, desktop, etc) should be flexible to changes without necessarily affecting the overall performance of the system.
 
 ### Practical use cases
 
@@ -92,11 +92,9 @@ clean-architecture-example
 
 ```
 
-**Folder Structure**
-
 The **regular** folder follows a typical Express.js project structure. It is composed of the following sub-folders:
 
-- **controllers:** This folder comprises of files that contains the core business logic responsible for the functionality of different modules of the application. In this case, it consist of a single file named `users.js`, which we would examine later.
+- **controllers:** This folder comprises files that contain the core business logic responsible for the functionality of different modules of the application. In this case, it consists of a single file named `users.js`, which we would examine later.
 
 - database: The database folder usually houses the `models` and `migration` files for the database. In this project, it consists of:
 - the index.js file which is an improvised in-memory database. Below is its content:
@@ -283,11 +281,11 @@ From the above file, the following observations could be made as examples of tig
 
 Ideally, the business logic should only be modified if there is a change in the business requirements. Therefore, we need to structure our application in such a way that the critical component of the application (business logic) should not be affected by the less-critical component of the application (database, API strategy, delivery platform etc.
 
-An alternative architecture which effectively handles the above concerns is discussed below.
+An alternative architecture that effectively handles the above concerns is discussed below.
 
 #### Clean Architecture
 
-A cleaner and more flexible architecture, is one that is loosely coupled and modular in nature. This means that there is clear separation of concerns and modularity is implemented in a manner that ensures code reuse.
+A cleaner and more flexible architecture is one that is loosely coupled and modular in nature. This means that there is a clear separation of concerns and modularity is implemented in a manner that ensures code reuse.
 
 To demonstrate its flexibility, two different database management systems were used namely: **PostgreSQL** & **MongoDB**. I applied [lessons learned](https://oloronduemeka.com/lessons-learned-from-the-clean-architecture-robert-c-martin) from Clean Architecture ( Robert C. Martin) and Domain-Driven Design (DDD).
 
@@ -347,7 +345,7 @@ This folder is made of 4 key sub-folders namely:
 - `dbConnection.js`, which handles the MongoDB connection
 - `useCases.js`, which is an orchestrator file for the use cases (more on that later)
 
-2. **core:** As the name implies, this folder is the fundamental core of the application. It comprises of 3 subfolders namely:
+2. **core:** As the name implies, this folder is the fundamental core of the application. It comprises 3 subfolders namely:
 
 - **definitions:** This contains reusable API response functions for _success_ and _error_ responses namely: `SuccessResponse.js` and `ErrorResponse.js`.
 - **entities:** It contains core business objects. In this project, the `entities` folder contains a single business object specified in `User.js`.
@@ -356,12 +354,13 @@ This folder is made of 4 key sub-folders namely:
 3. **data:** This contains the database-related functionalities. It contains the following sub-folders:
 
    - **database:** This folder contains the required database config folders for the `sql` (PostgreSQL) and `nosql` (MongoDB) databases.
-   - **implementations:** This folder contains `sql` and `nosql` subfolders, which contains required files for the implementation of the **sql** and **nosql** databases respectively, following the repository design pattern. In addition, it contains a single `index.js` file, which serves as an orchestrator file that dynamically selects the database implementation to be used in the application.
+   - **implementations:** This folder contains `sql` and `nosql` subfolders, which contain required files for the implementation of the **sql** and **nosql** databases respectively, following the repository design pattern. In addition, it contains a single `index.js` file, which serves as an orchestrator file that dynamically selects the database implementation to be used in the application.
 
-4. **entry_point:** This is the folder that contains platform-specific configuration (web, desktop), which is essential the mode of delivery of the software. For this project, the platform can be deployed on the web, which is why there is a single `web`folder containing the necessary framework-related configuration required for the deployment of the application (i.e. controllers, routes, middleware etc).
+4. **entry_point:** This is the folder that contains platform-specific configuration (web, desktop), which is essentially the mode of delivery of the software. For this project, the platform can be deployed on the web, which is why there is a single `web` folder containing the necessary framework-related configuration required for the deployment of the application (i.e. controllers, routes, middleware, etc).
 
-Analysis
-As an example, let's analyse the `CreateUser.js` file contained in`clean_architecture/core/use_cases/user` folder:
+#### Analysis
+
+As an example, let's analyse the `CreateUser.js` file contained in `clean_architecture/core/use_cases/user` folder:
 
 ```js
 const SuccessResponse = require('../../definitions/SuccessResponse');
@@ -374,7 +373,6 @@ class CreateUser {
 
   async execute({ lastName, firstName, email, password }) {
     try {
-      console.log('create user use_case');
       // simple validation
       if (!lastName) return ErrorResponse.badRequest('lastName is required');
       if (!firstName) return ErrorResponse.badRequest('firstName is required');
@@ -448,11 +446,33 @@ switch (dbType) {
 module.exports = finalRepositories;
 ```
 
-This ensures that the business logic files contained in `core/use_cases` remain independent of the type of database, delivery platform or API strategy used.
+This ensures that the business logic files contained in `core/use_cases` remain independent of the type of database, delivery platform, or API strategy used.
+
+### Practical demonstration of the clean architecture
+
+To demonstrate, we would test the concept learned in the clean architecture by using MongoDB & PostgreSQL, using the `env` variable: **DB_TYPE** to switch between the different databases.
+
+We would be testing the `CreateUser` functionality in Postman using the route: `http://localhost:5000/ca/users`
+
+**Tip:** Ensure that your MongoDB and PostgreSQL server is running on your local machine.
+
+#### Example 1: MongoDB
+
+By setting the `DB_TYPE=nosql`, we have instructed the system to use MongoDB. Using Postman, the result is as follows:
+
+![create_user_mongodb.PNG](https://cdn.hashnode.com/res/hashnode/image/upload/v1631064274740/51AQXMWQC.png)
+
+#### Example 2: PostgreSQL
+
+Using the same route as Example 1 above, set `DB_TYPE=sql` and restart the development server. The result is as follows:
+
+![postgres_create_user.PNG](https://cdn.hashnode.com/res/hashnode/image/upload/v1631065474552/CIMn3N4DV.png)
+
+This shows that we can use 2 different database management systems by changing the value of a single **env** variable- `DB_TYPE` without interfering with the core business logic of the application!
 
 ### Conclusion
 
-The development process of a software product vary across organizations and are largely affected by its needs--as determined by the individual/organisation responsible-- and the deadline attached to the product launch. While the ability to iterate fast is important, care should also be taken to ensure that the architecture of the software is structured in a manner that is scalable, flexible and maintainable.
+The development process of a software product varies across organizations and is largely affected by its needs--as determined by the individual/organization responsible--and the deadline attached to the product launch. While the ability to iterate fast is important, care should also be taken to ensure that the architecture of the software is structured in a manner that is scalable, flexible, and maintainable.
 
 ### Helpful Links
 

@@ -24,7 +24,10 @@ class Users {
 
   static async createUser(userDetails) {
     try {
-      const createdUser = await db(USERS_TABLE).insert(userDetails);
+      await db(USERS_TABLE).insert(userDetails);
+      const createdUser = await db(USERS_TABLE)
+        .where('email', userDetails.email)
+        .first();
       return createdUser;
     } catch (error) {
       throw error;

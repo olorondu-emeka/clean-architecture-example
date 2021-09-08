@@ -5,7 +5,7 @@ dotenv.config({ path: `${appPath}/.env` });
 
 module.exports = {
   development: {
-    client: 'mysql',
+    client: 'pg',
     connection: {
       host: process.env.DEV_HOST,
       database: process.env.DEV_DB,
