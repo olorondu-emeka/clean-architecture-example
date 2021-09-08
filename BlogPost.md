@@ -347,4 +347,13 @@ This folder is made of 4 key sub-folders namely:
 
 2. **core:** As the name implies, this folder is the fundamental core of the application. It comprises of 3 subfolders namely:
 
-- **definitions:** This contains reusable API response functions for **success** and **error** responses namely: `SuccessResponse.js` and `ErrorResponse.js`
+- **definitions:** This contains reusable API response functions for _success_ and _error_ responses namely: `SuccessResponse.js` and `ErrorResponse.js`.
+- **entities:** It contains core business objects. In this project, the `entities` folder contains a single business object specified in `User.js`.
+- **use_cases:** This folder contains the core business logic for the various business domains and their related functionalities. In this project, a single business domain, **user**, is specified by the `user` folder, with its related domain functionalities namely: `CreateUser.js`, `DeleteUser.js`, `GetSingleUser.js` and `UpdateUser.js`, as the names imply.
+
+3. **data:** This contains the database-related functionalities. It contains the following sub-folders:
+
+   - **database:** This folder contains the required database config folders for the `sql` (PostgreSQL) and `nosql` (MongoDB) databases.
+   - **implementations:** This folder contains `sql` and `nosql` subfolders, which contains required files for the implementation of the **sql** and **nosql** databases respectively, following the repository design pattern. In addition, it contains a single `index.js` file, which serves as an orchestrator file that dynamically selects the database implementation to be used in the application.
+
+4. **entry_point:** This is the folder that contains platform-specific configuration (web, desktop), which is essential the mode of delivery of the software. For this project, the platform can be deployed on the web, which is why there is a single `web`folder containing the necessary framework-related configuration required for the deployment of the application (i.e. controllers, routes, middleware etc).
